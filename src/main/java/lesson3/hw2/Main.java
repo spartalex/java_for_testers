@@ -30,8 +30,13 @@ public class Main {
         String[][] successArray =
                 {{"1", "3", "5", "6"},
                 {"1", "3", "5", "6"},
-                {"1", "3", "5", "6"},
+                {"1", "3", "5", "6", "5"},
                 {"1", "3", "5", "6"}};
+
+        Integer[][] array = new Integer[4][];
+        array[0] = new Integer[4];
+        array[0] = new Integer[5];
+        array[0] = new Integer[4];
 
         try {
             System.out.println(arraySum(successArray));
