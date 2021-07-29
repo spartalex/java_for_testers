@@ -6,6 +6,10 @@ public class Cat extends Animal implements CanSwim {
     private boolean isWild;
     private double swimmingSpeed;
 
+    public Cat() {
+        super("asdf", "asdgf", 4);
+    }
+
     public double getSwimmingSpeed() {
         return swimmingSpeed;
     }
@@ -42,6 +46,11 @@ public class Cat extends Animal implements CanSwim {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Cat setColorBuild(String color) {
+        this.color = color;
+        return this;
     }
 
     public int getAge() {
@@ -89,5 +98,14 @@ public class Cat extends Animal implements CanSwim {
         double timeToOvercome = pool.getLength() / swimmingSpeed;
         System.out.println(timeToOvercome);
         return timeToOvercome;
+    }
+
+    public static void main(String[] args) {
+        Cat cat1 = new Cat();
+        cat1.setAge(1);
+        cat1.setWild(true);
+        cat1.setSwimmingSpeed(4);
+
+        cat1.setColorBuild("white").setWild(true);
     }
 }
