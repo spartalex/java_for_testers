@@ -1,6 +1,7 @@
 package lesson7.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lesson7.project.entity.Weather;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,6 +26,8 @@ public class AccuweatherModel implements WeatherModel {
     private static final OkHttpClient okHttpClient = new OkHttpClient();
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    private DataBaseRepository dataBaseRepository = new DataBaseRepository();
+
     public void getWeather(String selectedCity, Period period) throws IOException {
         switch (period) {
             case NOW:
@@ -47,8 +50,8 @@ public class AccuweatherModel implements WeatherModel {
                 String weatherResponse = oneDayForecastResponse.body().string();
                 System.out.println(weatherResponse);
                 //TODO: сделать человекочитаемый вывод погоды. Выбрать параметры для вывода на свое усмотрение
-
                 //Например: Погода в городе Москва - 5 градусов по цельсию Expect showers late Monday night
+                //dataBaseRepository.saveWeatherToDataBase(new Weather()) - тут после парсинга добавляем данные в БД
                 break;
             case FIVE_DAYS:
                 //TODO*: реализовать вывод погоды на 5 дней
