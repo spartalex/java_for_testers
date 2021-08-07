@@ -17,7 +17,7 @@ public class AccuweatherModel implements WeatherModel {
     private static final String VERSION = "v1";
     private static final String DAILY = "daily";
     private static final String ONE_DAY = "1day";
-    private static final String API_KEY = "pXJd8MokcZCdrd2MsoGl2DBZAyCa0zvv";
+    private static final String API_KEY = "gl8OMsu0aYxcJ1HovrX6VHOLfJP6DSgV";
     private static final String API_KEY_QUERY_PARAM = "apikey";
     private static final String LOCATIONS = "locations";
     private static final String CITIES = "cities";
@@ -48,9 +48,13 @@ public class AccuweatherModel implements WeatherModel {
 
                 Response oneDayForecastResponse = okHttpClient.newCall(request).execute();
                 String weatherResponse = oneDayForecastResponse.body().string();
-                System.out.println(weatherResponse);
                 //TODO: сделать человекочитаемый вывод погоды. Выбрать параметры для вывода на свое усмотрение
-                //Например: Погода в городе Москва - 5 градусов по цельсию Expect showers late Monday night
+                String minTempInF = objectMapper.readTree(weatherResponse).at("/DailyForecasts").get(0).at("/Temperature/Minimum/Value").asText();
+                String manTempInF = objectMapper.readTree(weatherResponse).at("/DailyForecasts").get(0).at("/Temperature/Maximum/Value").asText();
+                String date = objectMapper.readTree(weatherResponse).at("/DailyForecasts").get(0).at("/Date").asText();
+
+                int averageTempInCelsium = (int) ((((Float.parseFloat(minTempInF) + Float.parseFloat(manTempInF)) / 2) - 32) / 1.8);
+                System.out.println(date.replaceAll("T.*", "") + " Средняя температура в " + selectedCity + ": " + averageTempInCelsium + " градусов по C");
                 //dataBaseRepository.saveWeatherToDataBase(new Weather()) - тут после парсинга добавляем данные в БД
                 break;
             case FIVE_DAYS:
