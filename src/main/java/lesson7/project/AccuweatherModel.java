@@ -1,5 +1,6 @@
 package lesson7.project;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lesson7.project.entity.Weather;
 import okhttp3.HttpUrl;
@@ -17,11 +18,17 @@ public class AccuweatherModel implements WeatherModel {
     private static final String VERSION = "v1";
     private static final String DAILY = "daily";
     private static final String ONE_DAY = "1day";
+    private static final String FIVE_DAYS = "5day";
     private static final String API_KEY = "gl8OMsu0aYxcJ1HovrX6VHOLfJP6DSgV";
     private static final String API_KEY_QUERY_PARAM = "apikey";
     private static final String LOCATIONS = "locations";
     private static final String CITIES = "cities";
     private static final String AUTOCOMPLETE = "autocomplete";
+
+    private String minTempInF;
+    private String maxTempInF;
+    private String date;
+    private int averageTempInCelsium;
 
     private static final OkHttpClient okHttpClient = new OkHttpClient();
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -49,16 +56,28 @@ public class AccuweatherModel implements WeatherModel {
                 Response oneDayForecastResponse = okHttpClient.newCall(request).execute();
                 String weatherResponse = oneDayForecastResponse.body().string();
                 //TODO: сделать человекочитаемый вывод погоды. Выбрать параметры для вывода на свое усмотрение
-                String minTempInF = objectMapper.readTree(weatherResponse).at("/DailyForecasts").get(0).at("/Temperature/Minimum/Value").asText();
-                String manTempInF = objectMapper.readTree(weatherResponse).at("/DailyForecasts").get(0).at("/Temperature/Maximum/Value").asText();
-                String date = objectMapper.readTree(weatherResponse).at("/DailyForecasts").get(0).at("/Date").asText();
-
-                int averageTempInCelsium = (int) ((((Float.parseFloat(minTempInF) + Float.parseFloat(manTempInF)) / 2) - 32) / 1.8);
-                System.out.println(date.replaceAll("T.*", "") + " Средняя температура в " + selectedCity + ": " + averageTempInCelsium + " градусов по C");
-                //dataBaseRepository.saveWeatherToDataBase(new Weather()) - тут после парсинга добавляем данные в БД
+                showAvarageWeatherForNdays(1, weatherResponse, selectedCity);
                 break;
             case FIVE_DAYS:
                 //TODO*: реализовать вывод погоды на 5 дней
+                HttpUrl httpUrlFiveDays = new HttpUrl.Builder()
+                        .scheme(PROTOKOL)
+                        .host(BASE_HOST)
+                        .addPathSegment(FORECASTS)
+                        .addPathSegment(VERSION)
+                        .addPathSegment(DAILY)
+                        .addPathSegment(FIVE_DAYS)
+                        .addPathSegment(detectCityKey(selectedCity))
+                        .addQueryParameter(API_KEY_QUERY_PARAM, API_KEY)
+                        .build();
+
+                Request requestFiveDays = new Request.Builder()
+                        .url(httpUrlFiveDays)
+                        .build();
+
+                Response fiveDayForecastResponse = okHttpClient.newCall(requestFiveDays).execute();
+                String response = fiveDayForecastResponse.body().string();
+                showAvarageWeatherForNdays(5, response, selectedCity);
                 break;
         }
     }
@@ -87,5 +106,15 @@ public class AccuweatherModel implements WeatherModel {
 
         String cityKey = objectMapper.readTree(responseString).get(0).at("/Key").asText();
         return cityKey;
+    }
+
+    private void showAvarageWeatherForNdays(int n, String response, String selectedCity) throws JsonProcessingException {
+        for (int i = 0; i < n; i++) {
+            minTempInF = objectMapper.readTree(response).at("/DailyForecasts").get(i).at("/Temperature/Minimum/Value").asText();
+            maxTempInF = objectMapper.readTree(response).at("/DailyForecasts").get(i).at("/Temperature/Maximum/Value").asText();
+            date = objectMapper.readTree(response).at("/DailyForecasts").get(i).at("/Date").asText();
+            averageTempInCelsium = (int) ((((Float.parseFloat(minTempInF) + Float.parseFloat(maxTempInF)) / 2) - 32) / 1.8);
+            System.out.println(date.replaceAll("T.*", "") + " Средняя температура в " + selectedCity + ": " + averageTempInCelsium + " градусов по C");
+        }
     }
 }
