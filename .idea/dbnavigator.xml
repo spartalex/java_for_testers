@@ -26,7 +26,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="c18fba22-bf73-4cc3-99fd-f667a69d8ac9">
-        <schema name="main" object-types="table, view, constraint, index, column, dataset trigger" />
+        <schema name="main" object-types="table, view, column" />
       </connection>
     </loaded-nodes>
   </component>
@@ -76,7 +76,7 @@ update faculties set name = 'Тест' where id = 1
 select s.name as "student name", f.name as "fac name" from students s join faculties f on s.fac_id = f.id;
 select * from students s left join faculties f on s.fac_id = f.id;
 
-
+1.1234124
 create table weather (id integer primary key autoincrement, city text, localdate text, temperature real)
 insert into weather (city, localdate, temperature) values ('Тест', '12.12', 12)
 select * from weather]]></console>

@@ -8,6 +8,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AccuweatherModel implements WeatherModel {
     //http://dataservice.accuweather.com/forecasts/v1/daily/1day/349727
@@ -57,6 +58,11 @@ public class AccuweatherModel implements WeatherModel {
                 //TODO*: реализовать вывод погоды на 5 дней
                 break;
         }
+    }
+
+    @Override
+    public List<Weather> getSavedToDBWeather() {
+        return dataBaseRepository.getSavedToDBWeather();
     }
 
     private String detectCityKey(String selectCity) throws IOException {
