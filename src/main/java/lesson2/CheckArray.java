@@ -1,5 +1,5 @@
 package lesson2;
-
+//545
 public class CheckArray {
     public static void main(String[] args) {
         String[][] Array1 = new String[][]{{"u", "2", "3", "4"}, {"5", "2", "6", "4"}, {"2", "2", "8", "3"}, {"1", "2", "2", "2"}};
