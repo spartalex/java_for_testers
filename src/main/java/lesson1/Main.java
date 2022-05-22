@@ -4,7 +4,13 @@ import static lesson1.Utils.makeAnimalOlder;
 
 public class Main {
     public static void main(String[] args) {
-        Cat cat1 = new Cat("Барсик", "белый", 1);
+        Human human1 = new Human("Дима", "white", 33);
+        Human human2 = new Human("Peter", "black", 13);
+
+
+
+
+       /* Cat cat1 = new Cat("Барсик", "белый", 1);
 
         System.out.println(cat1);
 
@@ -44,6 +50,6 @@ public class Main {
             pool.getTimeToOvercomePool(turtleCompetitor);
         }
 
-        makeAnimalOlder(cat2);
+        makeAnimalOlder(cat2);*/
     }
 }
