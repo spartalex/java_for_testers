@@ -40,10 +40,10 @@ public class HomeWork4 {
         phones.add("Ложкин", "34665456");
         phones.add("Петров", "56754688658");
 
-        System.out.println(phones.get("antonyan"));
-        System.out.println(phones.get("igoryan"));
-        System.out.println(phones.get("bobov"));
-        System.out.println(phones.get("smetanov"));
+        System.out.println("Иванов "+phones.get("Иванов"));
+        System.out.println("Ложкин "+phones.get("Ложкин"));
+        System.out.println("Руковишненко "+phones.get("Руковишненко"));
+        System.out.println("Петров "+phones.get("Петров"));
     }
 
 
