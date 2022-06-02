@@ -2,24 +2,41 @@ package lesson1;
 
 public class Team {
 
-  /*  public Team(String name, String color, int age, int sSpeed, int rSpeed){
-        Team [] gamer = new Team [4];
-        gamer[1]= new Team("Dima", "white", 33, 22,33);
-        gamer[2]= new Team("Peter", "black", 13, 11, 44);
-        gamer[3]= new Team("Joseph", "red", 17, 5, 6);
-        gamer[4]= new Team("Chu", "yellow", 18, 4, 8);
+    String nameTeam ;
+    //Random random = new Random();
 
+    Competitor[] partner = new Competitor[3];
+    Animal[] zoo = {new Cat("Murzik"), new Dog("Izzy")};
+    // Формируем команду
+    public Team(String nameTeam, Competitor com1, Competitor com2, Competitor com3 ) {
+        this.nameTeam  = nameTeam;
 
-
+        partner[0] = com1;
+        partner[1] = com2;
+        partner[2] = com3;
+//        for(int i = 0; i < 4; i++){
+//            int ran = random.nextInt(3);
 
     }
-*/
-    public Team(Human gamer){
-
-        Team [] pl = new Team[4];
-
-       // pl[1] = new Team(gamer.name, gamer.age, gamer.color, gamer.setRunSpeed(pi));
+    // Вывод информации кто прошел дистанцию
+    public void passedTheDistance() {
+        for (Competitor com : partner) {
+            // Если участник onDistance == true, выводим его
+            if (com.isOnDistance()) {
+                com.info();
+            }
+        }
     }
 
+    // Вывод информации о членах команды
+    public void showResults() {
+        for (Competitor com : partner) {
+            com.info();
+        }
+    }
 
+    // геттер участников команды
+    public Competitor[] getTeammates() {
+        return partner;
+    }
 }

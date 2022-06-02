@@ -1,39 +1,62 @@
 package lesson1;
 
-public abstract class Animal {
-    protected String name;
-    protected String color;
-    protected int age;
+public class Animal implements Competitor {
 
-    public Animal(String name, String color, int age) {
+    String type;
+    String name;
+
+    int maxRunDistance;
+    int maxJumpHeight;
+    int maxSwimDistance;
+
+    boolean onDistance;
+
+    public Animal(String type, String name, int maxRunDistance, int maxJumpHeight, int maxSwimDistance) {
+        this.type = type;
         this.name = name;
-        this.color = color;
-        this.age = age;
+        this.maxRunDistance = maxRunDistance;
+        this.maxJumpHeight = maxJumpHeight;
+        this.maxSwimDistance = maxSwimDistance;
+        this.onDistance = true;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public void run(int dist) {
+        if (dist <= maxRunDistance) {
+            System.out.println(type + " " + name + " пробежал");
+        } else {
+            System.out.println(type + " " + name + " устал");
+            onDistance = false;
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public void swim(int dist) {
+        if (dist <= maxSwimDistance) {
+            System.out.println(type + " " + name + " переплыл");
+        } else {
+            System.out.println(type + " " + name + " утонул");
+            onDistance = false;
+        }
     }
 
-    public String getColor() {
-        return color;
+    @Override
+    public void jump(int height) {
+        if (height <= maxJumpHeight) {
+            System.out.println(type + " " + name + " перепрыгнул");
+        } else {
+            System.out.println(type + " " + name + " упал");
+            onDistance = false;
+        }
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    @Override
+    public boolean isOnDistance() {
+        return onDistance;
     }
 
-    public int getAge() {
-        return age;
+    @Override
+    public void info() {
+        System.out.println(type + " " + name + " " + onDistance);
     }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public abstract void voice();
 }

@@ -1,38 +1,60 @@
 package lesson1;
 
-public class Human extends Animal implements CanSwim {
-    private int swimSpeed;
-    private int runSpeed;
-    public Human(String name, String color, int age){
-        super (name, color, age);
-       this.name=name;
-       this.color=color;
-       this.age=age;
+public class Human implements Competitor {
+
+    String name;
+
+    int maxRunDistance;
+    int maxJumpHeight;
+    int maxSwimDistance;
+
+    boolean active;
+
+    public Human(String name) {
+        this.name = name;
+        this.maxRunDistance = 5000;
+        this.maxJumpHeight = 30;
+        this.maxSwimDistance = 200;
+        this.active = true;
     }
 
-    public void voice() {
-        System.out.println("Человек кричит");}
-
-        public int getSwimSpeed () {
-            return swimSpeed;
+    @Override
+    public void run(int dist) {
+        if (dist <= maxRunDistance) {
+            System.out.println(name + " пробежал");
+        } else {
+            System.out.println(name + " устал");
+            active = false;
         }
+    }
 
-        public void setSwimSpeed ( int swimSpeed){
-            this.swimSpeed = swimSpeed;
+    @Override
+    public void swim(int dist) {
+        if (dist <= maxSwimDistance) {
+            System.out.println(name + " успешно проплыл");
+        } else {
+            System.out.println(name + " утонул");
+            active = false;
         }
+    }
 
-        public int getRunSpeed () {
-            return runSpeed;
+    @Override
+    public void jump(int height) {
+        if (height <= maxJumpHeight) {
+            System.out.println(name + " успешно прыгнул");
+        } else {
+            System.out.println(name + " упал");
+            active = false;
         }
+    }
 
-        public void setRunSpeed ( int runSpeed){
-            this.runSpeed = runSpeed;
-        }
-        public double swim(Pool pool){
-            double timeToOvercome = pool.getLength() / swimSpeed;
-            System.out.println(timeToOvercome);
-            return timeToOvercome;
-        }
+    @Override
+    public boolean isOnDistance() {
+        return active;
+    }
 
-
+    @Override
+    public void info() {
+        System.out.println(name + " " + active);
+    }
 }
