@@ -1,15 +1,21 @@
 package lesson3.HomeW3;
 
+import java.util.Arrays;
+
 public class SwapArray {
     public static void main(String[] args) {
-       /* SwapArr(new int[][]{new int[]{1, 3, 6, 7,}}, 2,2 );
+        Integer[] intArr = new Integer[2];
+
+        intArr[0] = 1;
+        intArr[1] = 2;
+
+        System.out.println(Arrays.deepToString(intArr));
+        swap(intArr, 0, 1);
+        System.out.println(Arrays.deepToString(intArr));
     }
-    public static void SwapArr(Object[] Array, Object i, Object j){
-        System.out.println(Array[]);
-        Object Swap=Array[(int) i];
-        Array[(int) i] =Array[(int) j];
-        Array[(int) j] = Swap;
-        System.out.println(Array.toString());
-    }*/
+    public static void swap(Object[] arr, int index1, int index2) {
+        Object tmp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = tmp;
     }
 }
