@@ -24,11 +24,15 @@ public class LookUpWeather {
                 .addQueryParameter("details", "true")
                 .addQueryParameter("metric", "true")
                 .build();
+        //запрос
 
         Request request = new Request.Builder()
                 .url(httpUrl)
                 .addHeader("Content-Type", "application/json")
                 .build();
+
+        //ответ
+
 
         Response response = okHttpClient.newCall(request).execute();
 
