@@ -1,5 +1,7 @@
 package lesson1;
 
+import java.util.ArrayList;
+
 import static lesson1.Utils.makeAnimalOlder;
 
 public class Main {
@@ -29,12 +31,18 @@ public class Main {
 
         //Создать набор бассейнов и заставить животных проплыть по ним и вывести время на заплыв
 
-        Cat catCompetitor1 = new Cat("Морис", "red", 10);
+        Cat catCompetitor1 = new Cat("Морис", "рыжий", 10);
         catCompetitor1.setSwimmingSpeed(10);
-        Wolf wolfCompetitor1 = new Wolf("Волк", "серый", 12);
+        catCompetitor1.setRunningSpeed(17);
+        Wolf wolfCompetitor1 = new Wolf("Полкан", "серый", 12);
         wolfCompetitor1.setSwimmingSpeed(12);
-        Turtle turtleCompetitor = new Turtle("Черепаха", "зеленая", 100);
+        wolfCompetitor1.setRunningSpeed(23);
+        Turtle turtleCompetitor = new Turtle("Тортилла", "зеленая", 100);
         turtleCompetitor.setSwimmingSpeed(15);
+        turtleCompetitor.setRunningSpeed(3);
+        Rabbit rabbitCompetitor = new Rabbit("Роджер", "белый", 5);
+        rabbitCompetitor.setSwimmingSpeed(9);
+        rabbitCompetitor.setRunningSpeed(43);
 
         Pool[] pools = {new Pool(15), new Pool(20), new Pool(35)};
 
@@ -42,8 +50,38 @@ public class Main {
             pool.getTimeToOvercomePool(catCompetitor1);
             pool.getTimeToOvercomePool(wolfCompetitor1);
             pool.getTimeToOvercomePool(turtleCompetitor);
+            pool.getTimeToOvercomePool(rabbitCompetitor);
         }
 
         makeAnimalOlder(cat2);
+
+        ArrayList<Animal> competitorsList = new ArrayList<Animal>();
+        competitorsList.add(catCompetitor1);
+        competitorsList.add(wolfCompetitor1);
+        competitorsList.add(turtleCompetitor);
+        competitorsList.add(rabbitCompetitor);
+
+        Team team =new Team("Гондольеры", competitorsList);
+
+        Obstacle mountain = new Obstacle(30);
+        Obstacle trace = new Obstacle(40);
+
+        ArrayList<Obstacle> oList = new ArrayList<Obstacle>();
+        oList.add(mountain);
+        oList.add(trace);
+
+        Course course =new Course(oList);
+
+        System.out.println("-----------------------------------------------------------------------------------------");
+
+        for (Animal animal : team.competitorsList) {
+            course.getTimeToOvercomeCourse(animal);
+        }
+
+        System.out.println("-----------------------------------------------------------------------------------------");
+
+        System.out.println(team);
+
+        team.getCompetitorsInfo();
     }
 }

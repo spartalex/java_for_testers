@@ -2,10 +2,18 @@ package lesson1;
 
 import java.util.Objects;
 
-public class Cat extends Animal implements CanSwim, CanRun {
+public class Rabbit extends Animal implements CanSwim, CanRun{
+
+    public Rabbit(String name, String color, int age) {
+        super(name, color, age);
+        this.name = name;
+        this.color = color;
+    }
+    public Rabbit(){
+        super("Роджер", "Белый",5);
+    }
     private boolean isWild;
     private double swimmingSpeed;
-
     public double getRunningSpeed() {
         return runningSpeed;
     }
@@ -16,22 +24,12 @@ public class Cat extends Animal implements CanSwim, CanRun {
 
     private double runningSpeed;
 
-    public Cat() {
-        super("asdf", "asdgf", 4);
-    }
-
     public double getSwimmingSpeed() {
         return swimmingSpeed;
     }
 
     public void setSwimmingSpeed(int swimmingSpeed) {
         this.swimmingSpeed = swimmingSpeed;
-    }
-
-    public Cat(String name, String color, int age) {
-        super(name, color, age);
-        this.name = name;
-        this.color = color;
     }
 
     public boolean isWild() {
@@ -58,7 +56,7 @@ public class Cat extends Animal implements CanSwim, CanRun {
         this.color = color;
     }
 
-    public Cat setColorBuild(String color) {
+    public Rabbit setColorBuild(String color) {
         this.color = color;
         return this;
     }
@@ -77,15 +75,17 @@ public class Cat extends Animal implements CanSwim, CanRun {
 
     @Override
     public String toString() {
-        return "Кот" + "\t" + name + "\t" + color + "\t" + age ;
+        return "Кролик" + "\t" + name + "\t" + color + "\t" + age ;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cat cat = (Cat) o;
-        return age == cat.age && Objects.equals(name, cat.name) && Objects.equals(color, cat.color);
+        Rabbit rabbit = (Rabbit) o;
+        return age == rabbit.age &&
+                Objects.equals(name, rabbit.name) &&
+                Objects.equals(color, rabbit.color);
     }
 
     @Override
@@ -94,28 +94,28 @@ public class Cat extends Animal implements CanSwim, CanRun {
     }
 
     public void voice() {
-        System.out.println("Кот мяукает!");
+        System.out.println("Кролик пищит!");
     }
 
     public double swim(Pool pool) {
-        System.out.println("Я кот, я плыву!");
+        System.out.println("Я кролик, я плыву!");
         double timeToOvercome = pool.getLength() / swimmingSpeed;
         System.out.println("Затратил " + timeToOvercome);
         return timeToOvercome;
     }
 
     public static void main(String[] args) {
-        Cat cat1 = new Cat();
-        cat1.setAge(1);
-        cat1.setWild(true);
-        cat1.setSwimmingSpeed(4);
+        Rabbit rabbit = new Rabbit();
+        rabbit.setAge(1);
+        rabbit.setWild(true);
+        rabbit.setSwimmingSpeed(4);
 
-        cat1.setColorBuild("white").setWild(true);
+        rabbit.setColorBuild("white").setWild(true);
     }
 
     @Override
     public double doIt(Course course) {
-        System.out.println("Я кот, я бегу!");
+        System.out.println("Я кроль, я бегу!");
         double i = 0;
         for (Obstacle obstacle: course.obstacles){
             i = i + obstacle.getLength();
