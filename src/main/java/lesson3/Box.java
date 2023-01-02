@@ -37,4 +37,5 @@ public class Box {
             int sum2 = (Integer) box1.getObject() + (Integer) box3.getObject();
         }
     }
+
 }
